@@ -270,7 +270,7 @@ if __name__ == "__main__":
     #ACREDITO QUE A DIFERENÇA DE DESEMPENHO ENTRE O 'TIM SORT' CHAMADO PELA FUNÇÃO 'SORTED' PADRÃO DO PYTHON SEJA CULPA DAS LISTAS, QUE NÃO POSSUEM UM DESEMPENHO MUITO BOM, 'SORTED' DEVE USAR ESTRUTURAS DE LISTA/ARRAY DIFERENTE E MAIS OTIMIZADA
 
     print("QUANTO MAIS ALTA A PONTUAÇÃO, MELHOR!\n")
-    ranking = []
+    lower_rank_speed = 0
     total_to_rank = len(algorithms)
     for j in range(len(algorithms)):
         lower_speed = None
@@ -287,7 +287,7 @@ if __name__ == "__main__":
                 break
         if j == 0:
             pontuation = 1
+            lower_rank_speed = lower_speed
         else:
-            pontuation = ranking[0]/lower_speed
-        ranking.append(lower_speed)
+            pontuation = lower_rank_speed/lower_speed
         print(f"{total_to_rank - j} lugar = '{round(pontuation, 2)}' ponto(s) | executado em '{lower_speed}' segundo(s) | {algorith_name}")
