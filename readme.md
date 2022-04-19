@@ -2,8 +2,8 @@ Este repositório trata-se de um objeto<br>
 de estudos.<br>
 <br>
 No arquivo "main.py" encontram-se alguns<br>
-algoritmos de ordenação de listas/arrays<br>
-e de busca binária.
+algoritmos de ordenação e busca, separados<br>
+em suas devidas funções.<br>
 <br>
 São eles:<br>
 - Insertion Sort<br>
@@ -14,5 +14,5 @@ São eles:<br>
 - Linear Search<br>
 - Binary Search<br>
 <br>
-Ao final do arquivo testei a velocidade de<br>
-cada um deles e atribuí uma pontuação!<br>
+Ao final do arquivo testei o desempenho de<br>
+cada um deles e atribuí uma pontuação proporcional!<br>
