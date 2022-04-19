@@ -41,7 +41,26 @@ def create_random_string_list(amount_elems, min_lenght, max_lenght):
 
 
 
+#retorna o index do valor alvo 'target' procurado
+#a lista deve estar ordenada
+#poder de busca de 2^n
+#com 30 recursividades pode encontrar um elemento especifico entre mais de 1 bilhão de elementos.
+def binary_search(list_to_search, target, start = 0, end = None):
+    if (end == None):
+        end = len(list_to_search) - 1
+    if (start > end):
+        return -1
+    middle = math.floor((start + end)/2)
+    if (target == list_to_search[middle]):
+        return middle
+    elif (target < list_to_search[middle]):
+        return binary_search(list_to_search, target, start, middle -1)
+    return binary_search(list_to_search, target, middle + 1, end)
 
+
+
+
+#retorna o menor valor de uma lista e seu index
 def search_lower_value(list_to_search):
     lower = None
     lower_index = None
@@ -51,6 +70,10 @@ def search_lower_value(list_to_search):
             lower_index = index
     return lower_index, lower
 
+
+
+
+#retorna o maior valor de uma lista e seu index
 def search_higher_value(list_to_search):
     higher = None
     higher_index = None
@@ -60,6 +83,10 @@ def search_higher_value(list_to_search):
             higher_index = index
     return higher_index, higher
 
+
+
+
+#algoritmo de ordenação 1
 def selection_sort(list_to_sort, reverse = False):
     for index_i, current_value in enumerate(list_to_sort):
         lower_index, lower_value = search_lower_value(list_to_sort[index_i:])
@@ -69,6 +96,10 @@ def selection_sort(list_to_sort, reverse = False):
         list_to_sort.reverse()
     return list_to_sort
 
+
+
+
+#algoritmo de ordenação 2
 def insertion_sort(list_to_sort, reverse = False):
     for index_i, i in enumerate(list_to_sort):
         for j in range(index_i, 0, -1):
@@ -82,6 +113,10 @@ def insertion_sort(list_to_sort, reverse = False):
         list_to_sort.reverse()
     return list_to_sort
 
+
+
+
+#algoritmo de ordenação 3
 def share_sort(list_to_sort, secondary_sort = insertion_sort, reverse = False, amount_sorters = 0):
     #divide o trabalho
     if amount_sorters == 0:
@@ -113,6 +148,10 @@ def share_sort(list_to_sort, secondary_sort = insertion_sort, reverse = False, a
         new_list.reverse()
     return new_list
 
+
+
+
+#algoritmo de ordenação 4
 def merge_sort(list_to_sort, reverse = False, start = 0, end = None):
     if end == None:
         end = len(list_to_sort)
@@ -143,6 +182,10 @@ def merge(list_to_sort, start, middle, end):
             list_to_sort[i] = right[top_right]
             top_right += 1
 
+
+
+
+#algoritmo de ordenação 5
 def quick_sort(list_to_sort, reverse = False, start = 0, end = None):
     if end == None:
         end = len(list_to_sort) - 1
@@ -166,9 +209,10 @@ def partition(list_to_sort, start, end):
 
 
 
+
 #executa a função e cronometra a velocidade de execução
-#sempre garanta que o argumento 'params' é do tipo tupla!
 #o argumento 'params' deve possuir todos os argumentos da função 'target_function'
+#sempre garanta que o argumento/parâmetro 'params' é do tipo tupla! se possuir só um argumento/parâmetro dentro dessa tupla, será '(arg1,)' (COM VÍRGULA!)
 def test_function_speed(target_function, params = (), print_function_result = False, precision = 8, extra_info = ""):
     start_time = time.perf_counter()
     result = target_function(*params)
@@ -183,54 +227,67 @@ def test_function_speed(target_function, params = (), print_function_result = Fa
 
 
 
+
+#início do software
 if __name__ == "__main__":
+
     os.system("cls")
 
-    shuffled_int_list = create_random_range_list(40, 1, 999)
+    shuffled_int_list = create_random_range_list(1000, 1, 999)
     print(f"lista de int's com ordem aleatória criada é {shuffled_int_list[:3]}...{shuffled_int_list[-3:]}\n")
 
     algorithms = {}
 
     shuffled_int_list_copy = shuffled_int_list.copy()
     selection_sort_performance, sort_lower_to_higher = test_function_speed(selection_sort, (shuffled_int_list_copy,))
-    algorithms['SELECTION SORT'] = math.floor(1/selection_sort_performance)/100
+    algorithms['SELECTION SORT'] = selection_sort_performance
 
     shuffled_int_list_copy = shuffled_int_list.copy()
     insertion_sort_performance, sort_lower_to_higher = test_function_speed(insertion_sort, (shuffled_int_list_copy,))
-    algorithms['INSERTION SORT'] = math.floor(1/insertion_sort_performance)/100
+    algorithms['INSERTION SORT'] = insertion_sort_performance
 
     shuffled_int_list_copy = shuffled_int_list.copy()
     share_sort_performance_1, sort_lower_to_higher = test_function_speed(share_sort, (shuffled_int_list_copy, insertion_sort), extra_info = "(usando 'insertion_sort' de algoritmo secundário)")
-    algorithms['SHARE SORT 1'] = math.floor(1/share_sort_performance_1)/100
+    algorithms['SHARE SORT 1'] = share_sort_performance_1
 
     shuffled_int_list_copy = shuffled_int_list.copy()
     share_sort_performance_2, sort_lower_to_higher = test_function_speed(share_sort, (shuffled_int_list_copy, selection_sort), extra_info = "(usando 'selection_sort' de algoritmo secundário)")
-    algorithms['SHARE SORT 2'] = math.floor(1/share_sort_performance_2)/100
+    algorithms['SHARE SORT 2'] = share_sort_performance_2
 
     shuffled_int_list_copy = shuffled_int_list.copy()
     merge_sort_performance, sort_lower_to_higher = test_function_speed(merge_sort, (shuffled_int_list_copy,))
-    algorithms['MERGE SORT'] = math.floor(1/merge_sort_performance)/100
+    algorithms['MERGE SORT'] = merge_sort_performance
 
     shuffled_int_list_copy = shuffled_int_list.copy()
     quick_sort_performance, sort_lower_to_higher = test_function_speed(quick_sort, (shuffled_int_list_copy,))
-    algorithms['QUICK SORT'] = math.floor(1/quick_sort_performance)/100
+    algorithms['QUICK SORT'] = quick_sort_performance
 
     shuffled_int_list_copy = shuffled_int_list.copy()
     tim_sort_performance, sort_lower_to_higher = test_function_speed(sorted, (shuffled_int_list_copy,), extra_info = "(usando 'tim_sort' de algoritmo primário)")
-    algorithms['TIM SORT'] = math.floor(1/tim_sort_performance)/100
+    algorithms['TIM SORT'] = tim_sort_performance
 
-    #EXISTE UM ALGORITMO QUE PROMETE SER SUPERIOR AO 'TIM SORT' E 'QUICK SORT', CHAMADO 'QUAD SORT' E CRIADO EM 2020
+    #EXISTE UM ALGORITMO QUE PROMETE SER SUPERIOR AO 'TIM SORT' E 'QUICK SORT', CHAMADO 'QUAD SORT', CRIADO EM 2020
+    #ACREDITO QUE A DIFERENÇA DE DESEMPENHO ENTRE O 'TIM SORT' CHAMADO PELA FUNÇÃO 'SORTED' PADRÃO DO PYTHON SEJA CULPA DAS LISTAS, QUE NÃO POSSUEM UM DESEMPENHO MUITO BOM, 'SORTED' DEVE USAR ESTRUTURAS DE LISTA/ARRAY DIFERENTE E MAIS OTIMIZADA
 
+    print("QUANTO MAIS ALTA A PONTUAÇÃO, MELHOR!\n")
+    ranking = []
+    total_to_rank = len(algorithms)
     for j in range(len(algorithms)):
-        lower = None
+        lower_speed = None
+        pontuation = 0
         for i in algorithms.values():
-            if lower == None:
-                lower = i
-            elif lower > i:
-                lower = i
+            if lower_speed == None:
+                lower_speed = i
+            elif lower_speed < i:
+                lower_speed = i
         for i in algorithms.keys():
-            if algorithms[i] == lower:
+            if algorithms[i] == lower_speed:
                 algorith_name = i
                 del algorithms[i]
                 break
-        print(f"{lower} pontos | {algorith_name}")
+        if j == 0:
+            pontuation = 1
+        else:
+            pontuation = ranking[0]/lower_speed
+        ranking.append(lower_speed)
+        print(f"{total_to_rank - j} lugar = '{round(pontuation, 2)}' ponto(s) | executado em '{lower_speed}' segundo(s) | {algorith_name}")
