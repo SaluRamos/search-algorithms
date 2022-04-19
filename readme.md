@@ -1,5 +1,5 @@
 Este repositório trata-se de um objeto<br>
-de estudos.<br>
+de estudo.<br>
 <br>
 No arquivo "main.py" encontram-se alguns<br>
 algoritmos de ordenação e busca, separados<br>
