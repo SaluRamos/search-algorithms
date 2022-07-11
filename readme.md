@@ -15,7 +15,7 @@ The search algorithms are:
 - Linear Search
 - Binary Search
 
-Score preview:
+Score preview:  
 ![alt text](https://media-exp1.licdn.com/dms/image/C4D22AQG0UOx9sbCS-g/feedshare-shrink_800/0/1650392172714?e=1660176000&v=beta&t=9NmU6aHu6ey82JNviXbVDV7pqdqjZ1d-G6_8KmeIq88)
 
 **Obs:** The tim sort pontuation must have better performance because of list data type used (python sorted function)
